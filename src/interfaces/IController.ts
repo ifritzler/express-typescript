@@ -1,13 +1,14 @@
+import { Request } from 'express'
 import ServiceProvider from './IService'
 
 interface IController {
   service: ServiceProvider
 
-  all(): []
-  findById(id: number): any
-  create(): any
-  update(id: number): void
-  delete(id: number): void
+  all(req: Request): Promise<any[]>
+  findById(req: Request): Promise<any>
+  create(req: Request): Promise<any>
+  update(req: Request): Promise<any>
+  delete(req: Request): Promise<void>
 }
 
 export default IController

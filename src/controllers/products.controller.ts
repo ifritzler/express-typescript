@@ -1,25 +1,35 @@
+import { Product } from '@prisma/client'
+import { Request } from 'express'
 import ControllerProvider from '../interfaces/ControllerProvider'
 import ProductService from '../services/products.service'
 
-class ProductController extends ControllerProvider {
+class ProductController extends ControllerProvider<Product> {
   constructor() {
     super(new ProductService())
   }
-
-  public all(): [] {
-    throw new Error('Method not implemented.')
+  async all(_req: Request) {
+    const products = await this.service.all()
+    return products
   }
-  public findById(_id: number) {
-    throw new Error('Method not implemented.')
+  async findById(req: Request) {
+    const { id } = req.params
+    const product = await this.service.findById(parseInt(id))
+    return product
   }
-  public create() {
-    throw new Error('Method not implemented.')
+  async create(req: Request) {
+    const data = req.body
+    const newProduct = await this.service.create(data)
+    return newProduct
   }
-  public update(_id: number): void {
-    throw new Error('Method not implemented.')
+  async update(req: Request) {
+    const { id } = req.params
+    const changes = req.body
+    const product = await this.service.update(parseInt(id), changes)
+    return product
   }
-  public delete(_id: number): void {
-    throw new Error('Method not implemented.')
+  async delete(req: Request) {
+    const { id } = req.params
+    await this.service.delete(parseInt(id))
   }
 }
 

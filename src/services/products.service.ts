@@ -2,9 +2,14 @@ import { Product } from '@prisma/client'
 import { ProductCreateDTO, ProductUpdateDTO } from '../dto/products.dto'
 import ServiceProvider from '../interfaces/ServiceProvider'
 
-class ProductService extends ServiceProvider {
+class ProductService extends ServiceProvider<Product> {
   async all(): Promise<Product[]> {
-    const products = await this._db.product.findMany()
+    const products = await this._db.product.findMany({
+      orderBy: { id: 'asc' },
+      // TODO: Paginacion posible
+      // cursor: { id: 10 },
+      // take: 5,
+    })
     return products
   }
 

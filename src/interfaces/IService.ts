@@ -9,11 +9,11 @@ interface IService {
       >
     | any
 
-  all(): any
-  findById(id: string | number): any
-  create(data: {}): any
-  update(id: number, changes: {}): void
-  delete(id: number): void
+  all(): Promise<any[]>
+  findById(id: string | number): Promise<any>
+  create(data: any): Promise<any>
+  update(id: string | number, changes: any): Promise<any>
+  delete(id: string | number): Promise<void>
 }
 
 export default IService

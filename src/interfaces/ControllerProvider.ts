@@ -1,26 +1,26 @@
+import { Request } from 'express'
 import IController from './IController'
-import ServiceProvider from './IService'
+import ServiceProvider from './ServiceProvider'
 
-class ControllerProvider implements IController {
-  service: ServiceProvider
+class ControllerProvider<Type> implements IController {
+  service: ServiceProvider<Type>
 
-  constructor(service: ServiceProvider) {
+  constructor(service: ServiceProvider<Type>) {
     this.service = service
   }
-
-  all(): [] {
+  all(_req: Request): Promise<Type[]> {
     throw new Error('Method not implemented.')
   }
-  findById(_id: number) {
+  findById(_req: Request): Promise<Type> {
     throw new Error('Method not implemented.')
   }
-  create() {
+  create(_req: Request): Promise<Type> {
     throw new Error('Method not implemented.')
   }
-  update(_id: number): void {
+  update(_req: Request): Promise<Type> {
     throw new Error('Method not implemented.')
   }
-  delete(_id: number): void {
+  delete(_req: Request): Promise<void> {
     throw new Error('Method not implemented.')
   }
 }
